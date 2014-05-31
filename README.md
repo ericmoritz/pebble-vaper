@@ -12,3 +12,8 @@ Use the select button to cycle through each value.  Use the up and
 down buttons to increase and decrease the value.  Long press the
 select button to lock a value so that it does not change when you
 adjust the values.
+
+Changelog
+-----------
+
+1.0.0: support for volts and ohms; watts and amps coming soon
