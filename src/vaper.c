@@ -213,8 +213,9 @@ static void down_click_handler(ClickRecognizerRef rec, void *context) {
 static void select_click_handler(ClickRecognizerRef rec, void *context) {
   clear_selected();
   selected = selected << 1;
+  // TODO: fix when watts/amps are supported
   if(selected > 8) 
-    selected = 1;
+    selected = 4;
   draw_selected();
 }
 
@@ -229,7 +230,6 @@ static void window_click_config_provider(void *context) {
   window_single_repeating_click_subscribe(BUTTON_ID_DOWN, 250, down_click_handler);
   window_single_repeating_click_subscribe(BUTTON_ID_UP, 250, up_click_handler);
 
-  window_long_click_subscribe(BUTTON_ID_UP, 500, lock_click_handler, NULL);
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
   window_long_click_subscribe(BUTTON_ID_SELECT, 500, lock_click_handler, NULL);
 }

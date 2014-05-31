@@ -36,14 +36,10 @@ float my_sqrt(const float x)
 void model_update(Model *model, int changed) {
   switch(model->locked | changed) {
   case VOLTS | OHMS:
+  case VOLTS:
   case OHMS:
     model->i = model->v / model->r;
     model->p = model->v * model->i;
-    break;
-  case WATTS | OHMS:
-  case WATTS:
-    model->v = my_sqrt(model->p * model->r);
-    model->i = model->p / model->v;
     break;
   }
 }
@@ -51,10 +47,10 @@ void model_update(Model *model, int changed) {
 void model_incr(Model *model, int changed, double x) {
   switch(changed) {
     case WATTS:
-      model->p = cap(model->p + x);
+      //model->p = cap(model->p + x); // re-enable when watt/amps are supported
       break;
     case AMPS:
-      model->i = cap(model->i + x);
+      //model->i = cap(model->i + x);
       break;
     case VOLTS:
       model->v = cap(model->v + x);
