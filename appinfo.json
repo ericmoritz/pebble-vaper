@@ -1,0 +1,17 @@
+{
+  "uuid": "cd3b5da8-f17c-4148-92be-e21771f408b6",
+  "shortName": "vaper",
+  "longName": "vaper",
+  "companyName": "MakeAwesomeHappen",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
