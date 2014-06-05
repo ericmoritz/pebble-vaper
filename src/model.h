@@ -1,4 +1,3 @@
-#include <pebble.h>
 #define WATTS 1
 #define AMPS  2
 #define VOLTS 4
@@ -14,4 +13,5 @@ typedef struct Model {
 
 void model_init(Model *model);
 void model_incr(Model *model, int changed, double x);
-
+double model_get_field(Model *model, int field);
+double model_get_double(Model *model, int field);
