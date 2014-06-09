@@ -9,6 +9,11 @@
 #define VALUE_BUFFER_SIZE 16  
 
 #define LOCKED_WIDTH 20
+
+// Feature flags
+#define FLAG_LOCKABLE 0
+#define FLAG_CHANGE_WATTS 0
+
 /*******************************************************************
  ** UI
  *******************************************************************/
@@ -109,7 +114,7 @@ static void fill_values() {
 }
 
 static void window_redraw() {
-  draw_locked();
+  if(FLAG_LOCKABLE) draw_locked();
   draw_selected();
   fill_values();
 }
@@ -213,9 +218,12 @@ static void down_click_handler(ClickRecognizerRef rec, void *context) {
 static void select_click_handler(ClickRecognizerRef rec, void *context) {
   clear_selected();
   selected = selected << 1;
-  // TODO: fix when watts/amps are supported
-  if(selected > 8) 
-    selected = 4;
+  // This allows us to change the watts
+  if(FLAG_CHANGE_WATTS) {
+    if(selected > 8) selected = 1;
+  } else {
+    if(selected > 8) selected = 4;
+  }
   draw_selected();
 }
 
@@ -231,7 +239,8 @@ static void window_click_config_provider(void *context) {
   window_single_repeating_click_subscribe(BUTTON_ID_UP, 250, up_click_handler);
 
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
-  window_long_click_subscribe(BUTTON_ID_SELECT, 500, lock_click_handler, NULL);
+  if(FLAG_LOCKABLE) 
+    window_long_click_subscribe(BUTTON_ID_SELECT, 500, lock_click_handler, NULL);
 }
 static void init(void) {
   model_init(&model);
