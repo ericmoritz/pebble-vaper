@@ -4,10 +4,10 @@
 
 void model_init(Model *model) {
   model->locked = OHMS;
-  model->r = 2.50;
-  model->v = 3.50;
-  model->i = 1.40;
-  model->p = 4.90;
+  model->r = 1.00;
+  model->v = 4.10;
+  model->i = 4.10;
+  model->p = 16.81;
 }
 
 
