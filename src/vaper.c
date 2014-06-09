@@ -10,9 +10,12 @@
 
 #define LOCKED_WIDTH 20
 
+#define MODEL_KEY 1
+
 // Feature flags
 #define FLAG_LOCKABLE 0
 #define FLAG_CHANGE_WATTS 0
+#define FLAG_PERSIST 1
 
 /*******************************************************************
  ** UI
@@ -243,7 +246,11 @@ static void window_click_config_provider(void *context) {
     window_long_click_subscribe(BUTTON_ID_SELECT, 500, lock_click_handler, NULL);
 }
 static void init(void) {
-  model_init(&model);
+  if(FLAG_PERSIST && persist_exists(MODEL_KEY)) {
+    persist_read_data(MODEL_KEY, &model, sizeof(model));
+  } else {
+    model_init(&model);
+  }
   selected = VOLTS;
   window = window_create();
   window_set_window_handlers(window, (WindowHandlers) {
@@ -255,6 +262,9 @@ static void init(void) {
 }
 
 static void deinit(void) {
+  if(FLAG_PERSIST) {
+    persist_write_data(MODEL_KEY, &model, sizeof(model));
+  }
   window_destroy(window);
 }
 

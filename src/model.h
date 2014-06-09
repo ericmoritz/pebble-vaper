@@ -9,7 +9,7 @@ typedef struct Model {
   double v;
   double i;
   double p;
-} Model;
+} __attribute__((__packed__)) Model;
 
 void model_init(Model *model);
 void model_incr(Model *model, int changed, double x);
